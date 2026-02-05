@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🦞 ClawDirectory
+
+The directory of tools, platforms, and services built for the OpenClaw ecosystem. Discover everything you need to build, deploy, and scale with OpenClaw.
+
+## About
+
+ClawDirectory is a community-driven directory showcasing the growing ecosystem around OpenClaw. From deployment platforms to skill marketplaces, developer tools to training services - find all the resources you need in one place.
+
+## Features
+
+- 🔍 **Search & Filter** - Find platforms by name, category, or tags
+- 👍 **Community Upvoting** - Help surface the best tools
+- 🔐 **Simple Auth** - Sign in with Google or email
+- 📝 **Open Submissions** - List your OpenClaw tool for free
+- 💰 **MRR Transparency** - Optional revenue sharing (inspired by TrustMRR)
+- 🎨 **Minimal Design** - Clean, focused interface
+- 📱 **Mobile Friendly** - Works on all devices
+- ⚡ **Fast** - Built with Next.js 14
+- 🔒 **Secure** - Row Level Security with Supabase
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React 19, TypeScript
+- **Styling**: Tailwind CSS 4
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth (Google + Email)
+- **Deployment**: Vercel
+
+## Categories
+
+- 🚀 **Deployment** - One-click deploy services, Docker images, cloud platforms
+- ⚡ **Infrastructure** - VPS hosting, managed services
+- 🔌 **Marketplace** - Skills, plugins, templates, integrations
+- 📊 **Analytics** - Performance tracking, monitoring, optimization
+- 🎓 **Education** - Courses, tutorials, documentation
+- 👥 **Services** - Consulting, development, training
+- 🛠️ **Tools** - CLI tools, dev tools, testing tools
+- 💼 **Business** - Insurance, legal, accounting for AI agents
 
 ## Getting Started
 
-First, run the development server:
+See `docs/README.md` for setup instructions.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Contributing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Contributions welcome! Feel free to submit a Pull Request.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## License
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+MIT License - see LICENSE file for details.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with ❤️ by [@0xAdel](https://x.com/0xAdel)
