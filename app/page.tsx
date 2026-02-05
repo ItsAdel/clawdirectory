@@ -44,9 +44,8 @@ export default function Home() {
     const {
       data: { user },
     } = await supabase.auth.getUser()
-    // For MVP, everyone can see the toggle (even logged out users)
-    // You can change this to only show for admins later
-    setIsAdmin(true)
+    // Only show toggle to logged-in users
+    setIsAdmin(!!user)
   }
 
   const fetchPlatforms = async () => {

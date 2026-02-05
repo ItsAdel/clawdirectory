@@ -1,13 +1,39 @@
 'use client'
 
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { UserMenu } from '@/components/auth/user-menu'
 import { AuthModal } from '@/components/auth/auth-modal'
+import { Button } from '@/components/ui/button'
 
 export function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    checkAuth()
+  }, [])
+
+  const checkAuth = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    setIsLoggedIn(!!user)
+  }
+
+  const handleSubmitClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (!isLoggedIn) {
+      setIsAuthModalOpen(true)
+    } else {
+      router.push('/submit')
+    }
+  }
 
   return (
     <>
@@ -31,12 +57,6 @@ export function Header() {
                 Home
               </Link>
               <Link
-                href="/submit"
-                className="text-sm text-white/80 hover:text-white transition-colors"
-              >
-                Submit
-              </Link>
-              <Link
                 href="/about"
                 className="text-sm text-white/80 hover:text-white transition-colors"
               >
@@ -44,8 +64,16 @@ export function Header() {
               </Link>
             </nav>
 
-            {/* User Menu */}
-            <div className="flex items-center">
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={handleSubmitClick}
+                variant="primary"
+                size="sm"
+                className="hidden md:inline-flex"
+              >
+                Submit Platform
+              </Button>
               <UserMenu onSignInClick={() => setIsAuthModalOpen(true)} />
             </div>
           </div>
