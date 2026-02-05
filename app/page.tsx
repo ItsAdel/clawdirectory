@@ -21,24 +21,47 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [userUpvotes, setUserUpvotes] = useState<string[]>([])
+  const [showPending, setShowPending] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   
   const supabase = createClient()
 
   useEffect(() => {
+    checkAdmin()
     fetchPlatforms()
     fetchUserUpvotes()
   }, [])
 
   useEffect(() => {
+    fetchPlatforms()
+  }, [showPending])
+
+  useEffect(() => {
     applyFiltersAndSort()
   }, [platforms, searchQuery, categoryFilter, sortBy])
 
+  const checkAdmin = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    // For MVP, everyone can see the toggle (even logged out users)
+    // You can change this to only show for admins later
+    setIsAdmin(true)
+  }
+
   const fetchPlatforms = async () => {
     try {
-      const { data, error } = await supabase
-        .from('platforms')
-        .select('*')
-        .eq('approved', true)
+      let query = supabase.from('platforms').select('*')
+
+      if (showPending) {
+        // Show ALL platforms (both approved and pending) when toggle is on
+        // No filter - fetch everything
+      } else {
+        // Show only approved platforms when toggle is off
+        query = query.eq('approved', true)
+      }
+
+      const { data, error } = await query
 
       if (error) throw error
       setPlatforms(data || [])
@@ -115,39 +138,71 @@ export default function Home() {
         </div>
 
         {/* Filters */}
-        <div className="mb-8 flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <Input
-              type="search"
-              placeholder="Search platforms..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full"
-            />
+        <div className="mb-8 space-y-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <Input
+                type="search"
+                placeholder="Search platforms..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full"
+              />
+            </div>
+            <Select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="md:w-48"
+            >
+              <option value="all">All Categories</option>
+              {CATEGORIES.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </Select>
+            <Select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="md:w-48"
+            >
+              {SORT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
           </div>
-          <Select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="md:w-48"
-          >
-            <option value="all">All Categories</option>
-            {CATEGORIES.map((category) => (
-              <option key={category.value} value={category.value}>
-                {category.label}
-              </option>
-            ))}
-          </Select>
-          <Select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="md:w-48"
-          >
-            {SORT_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Select>
+
+          {/* Pending Toggle - Only show if user is logged in */}
+          {isAdmin && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowPending(!showPending)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  showPending
+                    ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10'
+                }`}
+              >
+                <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
+                  showPending ? 'border-yellow-400 bg-yellow-500/20' : 'border-white/30'
+                }`}>
+                  {showPending && (
+                    <svg className="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                Show Your Pending Approvals
+              </button>
+              {showPending && (
+                <span className="text-xs text-yellow-400/80">
+                  {filteredPlatforms.filter(p => !p.approved).length} pending
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Stats */}

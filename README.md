@@ -16,30 +16,7 @@ ClawDirectory is a community-driven directory showcasing the growing ecosystem a
 - 🎨 **Minimal Design** - Clean, focused interface
 - 📱 **Mobile Friendly** - Works on all devices
 - ⚡ **Fast** - Built with Next.js 14
-- 🔒 **Secure** - Row Level Security with Supabase
-
-## Tech Stack
-
-- **Frontend**: Next.js 14, React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth (Google + Email)
-- **Deployment**: Vercel
-
-## Categories
-
-- 🚀 **Deployment** - One-click deploy services, Docker images, cloud platforms
-- ⚡ **Infrastructure** - VPS hosting, managed services
-- 🔌 **Marketplace** - Skills, plugins, templates, integrations
-- 📊 **Analytics** - Performance tracking, monitoring, optimization
-- 🎓 **Education** - Courses, tutorials, documentation
-- 👥 **Services** - Consulting, development, training
-- 🛠️ **Tools** - CLI tools, dev tools, testing tools
-- 💼 **Business** - Insurance, legal, accounting for AI agents
-
-## Getting Started
-
-See `docs/README.md` for setup instructions.
+- 🔒 **Secure** - Row Level Security with Supabase\
 
 ## Contributing
 

@@ -3,10 +3,8 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Modal, ModalHeader, ModalBody, ModalFooter } from '@/components/ui/modal'
+import { Modal, ModalHeader, ModalBody } from '@/components/ui/modal'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -14,47 +12,10 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [message, setMessage] = useState<string | null>(null)
   
   const supabase = createClient()
-
-  const handleEmailAuth = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    setMessage(null)
-
-    try {
-      if (mode === 'signup') {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
-          },
-        })
-        if (error) throw error
-        setMessage('Check your email for the confirmation link!')
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        })
-        if (error) throw error
-        onClose()
-        window.location.reload()
-      }
-    } catch (err: any) {
-      setError(err.message || 'An error occurred')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleGoogleAuth = async () => {
     setLoading(true)
@@ -74,22 +35,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }
   }
 
-  const resetForm = () => {
-    setEmail('')
-    setPassword('')
-    setError(null)
-    setMessage(null)
-  }
-
-  const switchMode = () => {
-    setMode(mode === 'signin' ? 'signup' : 'signin')
-    resetForm()
-  }
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader>
-        {mode === 'signin' ? 'Sign In' : 'Create Account'}
+        Sign In to ClawDirectory
       </ModalHeader>
 
       <ModalBody>
@@ -99,62 +48,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </div>
         )}
 
-        {message && (
-          <div className="mb-4 p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm">
-            {message}
-          </div>
-        )}
-
-        <form onSubmit={handleEmailAuth} className="space-y-4">
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1.5"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="mt-1.5"
-            />
-          </div>
-
-          <Button
-            type="submit"
-            variant="primary"
-            className="w-full"
-            disabled={loading}
-          >
-            {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Sign Up'}
-          </Button>
-        </form>
-
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-white/10"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="bg-zinc-900 px-2 text-white/60">Or continue with</span>
-          </div>
-        </div>
+        <p className="text-white/60 text-sm mb-6 text-center">
+          Sign in with your Google account to submit platforms and upvote your favorites
+        </p>
 
         <Button
           type="button"
-          variant="secondary"
+          variant="primary"
           className="w-full"
           onClick={handleGoogleAuth}
           disabled={loading}
@@ -177,34 +77,12 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          Google
+          {loading ? 'Signing in...' : 'Continue with Google'}
         </Button>
 
-        <div className="mt-4 text-center text-sm text-white/60">
-          {mode === 'signin' ? (
-            <>
-              Don't have an account?{' '}
-              <button
-                type="button"
-                onClick={switchMode}
-                className="text-cyan-400 hover:text-cyan-300 font-medium"
-              >
-                Sign up
-              </button>
-            </>
-          ) : (
-            <>
-              Already have an account?{' '}
-              <button
-                type="button"
-                onClick={switchMode}
-                className="text-cyan-400 hover:text-cyan-300 font-medium"
-              >
-                Sign in
-              </button>
-            </>
-          )}
-        </div>
+        <p className="mt-4 text-xs text-white/40 text-center">
+          By signing in, you agree to our terms of service
+        </p>
       </ModalBody>
     </Modal>
   )

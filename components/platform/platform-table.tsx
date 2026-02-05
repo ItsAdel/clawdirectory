@@ -43,36 +43,57 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
         <tbody>
           {platforms.map((platform) => {
             const category = CATEGORIES.find((c) => c.value === platform.category)
+            const isPending = !platform.approved
             return (
               <tr
                 key={platform.id}
-                className="border-b border-white/5 hover:bg-white/5 transition-colors"
+                className={`border-b border-white/5 transition-colors ${
+                  isPending 
+                    ? 'bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/20' 
+                    : 'hover:bg-white/5'
+                }`}
               >
                 <td className="py-4 px-4">
                   <Link
                     href={`/platforms/${platform.slug}`}
                     className="flex items-center gap-3 group"
                   >
-                    <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white/5 flex-shrink-0">
+                    <div className={`relative w-12 h-12 rounded-lg overflow-hidden bg-white/5 flex-shrink-0 ${
+                      isPending ? 'opacity-60' : ''
+                    }`}>
                       <Image
                         src={platform.logo_url}
                         alt={`${platform.name} logo`}
                         fill
                         className="object-cover"
                       />
+                      {isPending && (
+                        <div className="absolute inset-0 bg-yellow-500/10 backdrop-blur-[1px]" />
+                      )}
                     </div>
                     <div>
-                      <h3 className="font-medium text-white group-hover:text-cyan-400 transition-colors">
-                        {platform.name}
-                      </h3>
-                      <p className="text-sm text-white/60 line-clamp-1 max-w-md">
+                      <div className="flex items-center gap-2">
+                        <h3 className={`font-medium group-hover:text-cyan-400 transition-colors ${
+                          isPending ? 'text-white/70' : 'text-white'
+                        }`}>
+                          {platform.name}
+                        </h3>
+                        {isPending && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                            Pending
+                          </span>
+                        )}
+                      </div>
+                      <p className={`text-sm line-clamp-1 max-w-md ${
+                        isPending ? 'text-white/40' : 'text-white/60'
+                      }`}>
                         {platform.description}
                       </p>
                     </div>
                   </Link>
                 </td>
                 <td className="py-4 px-4">
-                  <Badge variant="secondary">
+                  <Badge variant="secondary" className={isPending ? 'opacity-60' : ''}>
                     {category?.emoji} {category?.label.replace(/^.\s/, '')}
                   </Badge>
                 </td>
@@ -113,29 +134,50 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
       <div className="grid gap-4 md:hidden">
         {platforms.map((platform) => {
           const category = CATEGORIES.find((c) => c.value === platform.category)
+          const isPending = !platform.approved
           return (
             <Link
               key={platform.id}
               href={`/platforms/${platform.slug}`}
-              className="block p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors"
+              className={`block p-4 rounded-lg border transition-colors ${
+                isPending
+                  ? 'bg-yellow-500/5 border-yellow-500/20 hover:bg-yellow-500/10'
+                  : 'bg-white/5 border-white/10 hover:bg-white/10'
+              }`}
             >
               <div className="flex items-start gap-3 mb-3">
-                <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white/5 flex-shrink-0">
+                <div className={`relative w-12 h-12 rounded-lg overflow-hidden bg-white/5 flex-shrink-0 ${
+                  isPending ? 'opacity-60' : ''
+                }`}>
                   <Image
                     src={platform.logo_url}
                     alt={`${platform.name} logo`}
                     fill
                     className="object-cover"
                   />
+                  {isPending && (
+                    <div className="absolute inset-0 bg-yellow-500/10 backdrop-blur-[1px]" />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-medium text-white mb-1">{platform.name}</h3>
-                  <Badge variant="secondary" className="text-xs">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className={`font-medium ${isPending ? 'text-white/70' : 'text-white'}`}>
+                      {platform.name}
+                    </h3>
+                    {isPending && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                        Pending
+                      </span>
+                    )}
+                  </div>
+                  <Badge variant="secondary" className={`text-xs ${isPending ? 'opacity-60' : ''}`}>
                     {category?.emoji} {category?.label.replace(/^.\s/, '')}
                   </Badge>
                 </div>
               </div>
-              <p className="text-sm text-white/60 mb-3 line-clamp-2">
+              <p className={`text-sm mb-3 line-clamp-2 ${
+                isPending ? 'text-white/40' : 'text-white/60'
+              }`}>
                 {platform.description}
               </p>
               <div className="flex items-center justify-between">
