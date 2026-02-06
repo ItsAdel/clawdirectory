@@ -112,7 +112,7 @@ export function GlobeView() {
           return {
             lat: coords.lat,
             lng: coords.lng,
-            size: 1.2, // Larger size for better visibility
+            size: 1.8, // Larger size for better visibility
             color: '#06b6d4', // cyan-500
             label: `${platform.name} - ${platform.location_city}, ${platform.location_country}`,
             name: platform.name,
@@ -162,8 +162,8 @@ export function GlobeView() {
           // Create container
           const container = document.createElement('div');
           container.style.cssText = `
-            width: 32px;
-            height: 32px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.8);
             border: 2px solid rgba(6, 182, 212, 0.6);
