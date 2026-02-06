@@ -152,10 +152,10 @@ export function GlobeView() {
   }
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-black/20 border border-white/10 flex items-center justify-center">
-      <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/10">
-        <p className="text-sm text-white/80">
-          <span className="font-semibold text-cyan-400">{platforms.length}</span> platforms launched worldwide
+    <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-orange-100 to-pink-100 border border-orange-300 flex items-center justify-center shadow-lg">
+      <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-orange-300 shadow-sm">
+        <p className="text-sm text-orange-800">
+          🦞 <span className="font-semibold text-orange-600">{platforms.length}</span> platforms launched worldwide!
         </p>
       </div>
       
@@ -175,8 +175,8 @@ export function GlobeView() {
             height: 48px;
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(6, 182, 212, 0.6);
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.8), 0 0 24px rgba(6, 182, 212, 0.4);
+            border: 2px solid #ff9a76;
+            box-shadow: 0 0 12px #ff9a76, 0 0 24px #ff9a76;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -207,8 +207,8 @@ export function GlobeView() {
               width: 12px;
               height: 12px;
               border-radius: 50%;
-              background: #06b6d4;
-              box-shadow: 0 0 4px rgba(6, 182, 212, 0.8);
+              background: #ff9a76;
+              box-shadow: 0 0 4px #ff9a76;
             `;
             container.appendChild(fallback);
           };
@@ -230,7 +230,7 @@ export function GlobeView() {
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.2s ease;
-            border: 1px solid rgba(6, 182, 212, 0.6);
+            border: 1px solid #ff9a76;
             z-index: 10000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
           `;
@@ -241,10 +241,10 @@ export function GlobeView() {
           style.textContent = `
             @keyframes pulse {
               0%, 100% {
-                box-shadow: 0 0 12px rgba(6, 182, 212, 0.8), 0 0 24px rgba(6, 182, 212, 0.4);
+                box-shadow: 0 0 12px #ff9a76, 0 0 24px #ff9a76;
               }
               50% {
-                box-shadow: 0 0 20px rgba(6, 182, 212, 1), 0 0 40px rgba(6, 182, 212, 0.6);
+                box-shadow: 0 0 20px #ff9a76, 0 0 40px #ff9a76;
               }
             }
           `;
@@ -279,7 +279,7 @@ export function GlobeView() {
           
           return el;
         }}
-        atmosphereColor="#06b6d4"
+        atmosphereColor="#ff9a76"
         atmosphereAltitude={0.15}
       />
     </div>

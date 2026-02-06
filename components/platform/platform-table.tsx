@@ -22,7 +22,7 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
   if (platforms.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-white/60 text-lg">No platforms found. Try adjusting your filters.</p>
+        <p className="text-orange-700 text-lg">🦞 No platforms found. Try adjusting your filters!</p>
       </div>
     )
   }
@@ -30,14 +30,14 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
   return (
     <div className="overflow-x-auto">
       {/* Desktop Table View */}
-      <table className="w-full hidden md:table">
+      <table className="w-full hidden md:table bg-white rounded-lg shadow-md overflow-hidden">
         <thead>
-          <tr className="border-b border-white/10">
-            <th className="text-left py-4 px-4 text-sm font-medium text-white/60">Platform</th>
-            <th className="text-left py-4 px-4 text-sm font-medium text-white/60">Category</th>
-            <th className="text-left py-4 px-4 text-sm font-medium text-white/60">MRR</th>
-            <th className="text-left py-4 px-4 text-sm font-medium text-white/60">Upvotes</th>
-            <th className="text-right py-4 px-4 text-sm font-medium text-white/60">Action</th>
+          <tr className="border-b-2 border-orange-300 bg-orange-50">
+            <th className="text-left py-4 px-4 text-sm font-medium text-orange-700">Platform</th>
+            <th className="text-left py-4 px-4 text-sm font-medium text-orange-700">Category</th>
+            <th className="text-left py-4 px-4 text-sm font-medium text-orange-700">MRR</th>
+            <th className="text-left py-4 px-4 text-sm font-medium text-orange-700">Upvotes</th>
+            <th className="text-right py-4 px-4 text-sm font-medium text-orange-700">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -47,10 +47,10 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
             return (
               <tr
                 key={platform.id}
-                className={`border-b border-white/5 transition-colors ${
+                className={`border-b border-orange-200 transition-colors ${
                   isPending 
-                    ? 'bg-yellow-500/5 hover:bg-yellow-500/10 border-yellow-500/20' 
-                    : 'hover:bg-white/5'
+                    ? 'bg-yellow-50 hover:bg-yellow-100 border-yellow-300' 
+                    : 'bg-white hover:bg-orange-50'
                 }`}
               >
                 <td className="py-4 px-4">
@@ -73,19 +73,19 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className={`font-medium group-hover:text-cyan-400 transition-colors ${
-                          isPending ? 'text-white/70' : 'text-white'
+                        <h3 className={`font-medium group-hover:text-orange-500 transition-colors ${
+                          isPending ? 'text-orange-700' : 'text-orange-900'
                         }`}>
                           {platform.name}
                         </h3>
                         {isPending && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                            Pending
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-200 text-yellow-800 border border-yellow-400">
+                            ⏳ Pending
                           </span>
                         )}
                       </div>
                       <p className={`text-sm line-clamp-1 max-w-md ${
-                        isPending ? 'text-white/40' : 'text-white/60'
+                        isPending ? 'text-orange-600' : 'text-orange-700'
                       }`}>
                         {platform.description}
                       </p>
@@ -98,7 +98,7 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                   </Badge>
                 </td>
                 <td className="py-4 px-4">
-                  <span className="text-white/80 font-medium">
+                  <span className="text-orange-800 font-medium">
                     {formatMRR(platform.mrr)}
                   </span>
                 </td>
@@ -115,10 +115,10 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                     href={platform.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                    className="inline-flex items-center gap-1 text-sm text-orange-500 hover:text-orange-600 transition-colors font-medium"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Visit
+                    Visit 🔗
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -139,10 +139,10 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
             <Link
               key={platform.id}
               href={`/platforms/${platform.slug}`}
-              className={`block p-4 rounded-lg border transition-colors ${
+              className={`block p-4 rounded-lg border transition-colors shadow-sm ${
                 isPending
-                  ? 'bg-yellow-500/5 border-yellow-500/20 hover:bg-yellow-500/10'
-                  : 'bg-white/5 border-white/10 hover:bg-white/10'
+                  ? 'bg-yellow-100/50 border-yellow-300 hover:bg-yellow-100'
+                  : 'bg-white border-orange-200 hover:bg-orange-50'
               }`}
             >
               <div className="flex items-start gap-3 mb-3">
@@ -161,12 +161,12 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className={`font-medium ${isPending ? 'text-white/70' : 'text-white'}`}>
+                    <h3 className={`font-medium ${isPending ? 'text-orange-700' : 'text-orange-900'}`}>
                       {platform.name}
                     </h3>
                     {isPending && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
-                        Pending
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-200 text-yellow-800 border border-yellow-400">
+                        ⏳ Pending
                       </span>
                     )}
                   </div>
@@ -176,7 +176,7 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                 </div>
               </div>
               <p className={`text-sm mb-3 line-clamp-2 ${
-                isPending ? 'text-white/40' : 'text-white/60'
+                isPending ? 'text-orange-600' : 'text-orange-700'
               }`}>
                 {platform.description}
               </p>
@@ -188,7 +188,7 @@ export function PlatformTable({ platforms, onAuthRequired, userUpvotes }: Platfo
                     initialIsUpvoted={userUpvotes.includes(platform.id)}
                     onAuthRequired={onAuthRequired}
                   />
-                  <span className="text-sm text-white/60">
+                  <span className="text-sm text-orange-700 font-medium">
                     MRR: {formatMRR(platform.mrr)}
                   </span>
                 </div>

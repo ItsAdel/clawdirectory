@@ -11,11 +11,11 @@ function Badge({ className, variant = 'default', ...props }: BadgeProps) {
       className={cn(
         'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors',
         {
-          'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30':
+          'bg-orange-200 text-orange-800 border border-orange-300':
             variant === 'default',
-          'bg-white/10 text-white/80 border border-white/20':
+          'bg-orange-100 text-orange-700 border border-orange-200':
             variant === 'secondary',
-          'text-white/80 border border-white/30': variant === 'outline',
+          'text-orange-800 border border-orange-300': variant === 'outline',
         },
         className
       )}

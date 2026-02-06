@@ -2,61 +2,61 @@ import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black">
+    <footer className="border-t border-orange-200 bg-orange-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <span className="text-2xl">🦞</span>
-              <span className="text-xl font-bold text-white">ClawDirectory</span>
+              <span className="text-xl font-bold text-orange-900">ClawDirectory</span>
             </div>
-            <p className="text-white/60 text-sm max-w-md">
-              The directory of tools, platforms, and services built for the OpenClaw ecosystem. 
-              Discover everything you need to build, deploy, and scale with OpenClaw.
+            <p className="text-orange-700 text-sm max-w-md">
+              🦞 The cozy directory of tools, platforms, and services built for the OpenClaw ecosystem. 
+              Discover everything you need to build, deploy, and scale with OpenClaw! 🦞
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Links</h3>
+            <h3 className="text-orange-900 font-semibold mb-4">🔗 Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/"
-                  className="text-white/60 hover:text-white text-sm transition-colors"
+                  className="text-orange-700 hover:text-orange-900 text-sm transition-colors"
                 >
-                  Home
+                  🏠 Home
                 </Link>
               </li>
               <li>
                 <Link
                   href="/submit"
-                  className="text-white/60 hover:text-white text-sm transition-colors"
+                  className="text-orange-700 hover:text-orange-900 text-sm transition-colors"
                 >
-                  Submit
+                  🦞 Submit
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="text-white/60 hover:text-white text-sm transition-colors"
+                  className="text-orange-700 hover:text-orange-900 text-sm transition-colors"
                 >
-                  About
+                  ℹ️ About
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/60 text-sm">
-            Made with ❤️ by{' '}
+        <div className="border-t border-orange-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-orange-700 text-sm">
+            Made with 🦞 by{' '}
             <a
               href="https://x.com/0xAdel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              className="text-orange-500 hover:text-orange-600 transition-colors font-semibold"
             >
               @0xAdel
             </a>
@@ -66,7 +66,7 @@ export function Footer() {
               href="https://github.com/ItsAdel/clawdirectory"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/60 hover:text-cyan-400 transition-colors"
+              className="text-orange-700 hover:text-orange-500 transition-colors"
               aria-label="View on GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ export function Footer() {
               href="https://x.com/0xAdel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/60 hover:text-cyan-400 transition-colors"
+              className="text-orange-700 hover:text-orange-500 transition-colors"
               aria-label="Follow on X"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

@@ -50,7 +50,7 @@ export function PlatformDetailClient({
         {/* Back Button */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-orange-700 hover:text-orange-900 transition-colors mb-8 font-medium"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -60,7 +60,7 @@ export function PlatformDetailClient({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Back to directory
+          🦞 Back to directory
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -78,7 +78,7 @@ export function PlatformDetailClient({
               </div>
               <div className="flex-1">
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <h1 className="text-3xl md:text-4xl font-bold text-white">
+                  <h1 className="text-3xl md:text-4xl font-bold text-orange-900">
                     {platform.name}
                   </h1>
                   <UpvoteButton
@@ -95,12 +95,12 @@ export function PlatformDetailClient({
                     </Badge>
                   )}
                   {platform.featured && (
-                    <Badge variant="outline" className="text-cyan-400 border-cyan-500/50">
+                    <Badge variant="outline" className="text-orange-600 border-orange-400">
                       ⭐ Featured
                     </Badge>
                   )}
                 </div>
-                <p className="text-lg text-white/80 leading-relaxed">
+                <p className="text-lg text-orange-800 leading-relaxed">
                   {platform.description}
                 </p>
               </div>
@@ -109,8 +109,8 @@ export function PlatformDetailClient({
             {/* Tags */}
             {platform.tags && platform.tags.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-sm font-semibold text-white/60 mb-3 uppercase tracking-wide">
-                  Tags
+                <h2 className="text-sm font-semibold text-orange-700 mb-3 uppercase tracking-wide">
+                  🏷️ Tags
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {platform.tags.map((tag) => (
@@ -124,11 +124,11 @@ export function PlatformDetailClient({
 
             {/* Category Description */}
             {category && (
-              <div className="mb-8 p-4 rounded-lg bg-white/5 border border-white/10">
-                <h2 className="text-sm font-semibold text-white mb-2">
-                  About {category.label.replace(/^.\s/, '')} Platforms
+              <div className="mb-8 p-4 rounded-lg bg-orange-50 border border-orange-200 shadow-sm">
+                <h2 className="text-sm font-semibold text-orange-900 mb-2">
+                  ℹ️ About {category.label.replace(/^.\s/, '')} Platforms
                 </h2>
-                <p className="text-sm text-white/60">
+                <p className="text-sm text-orange-700">
                   {CATEGORY_DESCRIPTIONS[platform.category]}
                 </p>
               </div>
@@ -139,12 +139,12 @@ export function PlatformDetailClient({
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
               {/* CTA */}
-              <div className="p-6 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/30">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-orange-100 to-pink-50 border-2 border-orange-300 shadow-lg">
                 <Button
                   className="w-full mb-3"
                   onClick={() => window.open(platform.website, '_blank')}
                 >
-                  Visit Website
+                  🦞 Visit Website
                   <svg
                     className="w-4 h-4 ml-2"
                     fill="none"
@@ -163,41 +163,41 @@ export function PlatformDetailClient({
                   href={platform.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-xs text-center text-cyan-400/80 hover:text-cyan-400 transition-colors truncate"
+                  className="block text-xs text-center text-orange-600 hover:text-orange-700 transition-colors truncate font-medium"
                 >
                   {platform.website}
                 </a>
               </div>
 
               {/* Stats */}
-              <div className="p-6 rounded-xl bg-white/5 border border-white/10">
-                <h3 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wide">
-                  Stats
+              <div className="p-6 rounded-xl bg-white border border-orange-200 shadow-md">
+                <h3 className="text-sm font-semibold text-orange-700 mb-4 uppercase tracking-wide">
+                  📊 Stats
                 </h3>
                 <div className="space-y-4">
                   {platform.mrr !== null && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-white/60">MRR</span>
-                      <span className="text-lg font-semibold text-white">
+                      <span className="text-sm text-orange-700">💰 MRR</span>
+                      <span className="text-lg font-semibold text-orange-900">
                         {formatMRR(platform.mrr)}
                       </span>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-white/60">Upvotes</span>
-                    <span className="text-lg font-semibold text-cyan-400">
+                    <span className="text-sm text-orange-700">❤️ Upvotes</span>
+                    <span className="text-lg font-semibold text-orange-600">
                       {platform.upvote_count}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-white/60">Views</span>
-                    <span className="text-lg font-semibold text-white">
+                    <span className="text-sm text-orange-700">👀 Views</span>
+                    <span className="text-lg font-semibold text-orange-900">
                       {platform.view_count}
                     </span>
                   </div>
-                  <div className="pt-4 border-t border-white/10">
-                    <span className="text-xs text-white/40">
-                      Added {formatDate(platform.submitted_at)}
+                  <div className="pt-4 border-t border-orange-200">
+                    <span className="text-xs text-orange-600">
+                      📅 Added {formatDate(platform.submitted_at)}
                     </span>
                   </div>
                 </div>
@@ -205,9 +205,9 @@ export function PlatformDetailClient({
 
               {/* Social Links */}
               {(platform.twitter || platform.github) && (
-                <div className="p-6 rounded-xl bg-white/5 border border-white/10">
-                  <h3 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wide">
-                    Connect
+                <div className="p-6 rounded-xl bg-white border border-orange-200 shadow-md">
+                  <h3 className="text-sm font-semibold text-orange-700 mb-4 uppercase tracking-wide">
+                    🔗 Connect
                   </h3>
                   <div className="space-y-3">
                     {platform.twitter && (
@@ -215,12 +215,12 @@ export function PlatformDetailClient({
                         href={`https://twitter.com/${platform.twitter.replace('@', '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-white/80 hover:text-white transition-colors"
+                        className="flex items-center gap-3 text-orange-700 hover:text-orange-900 transition-colors"
                       >
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
-                        <span className="text-sm">{platform.twitter}</span>
+                        <span className="text-sm font-medium">{platform.twitter}</span>
                       </a>
                     )}
                     {platform.github && (
@@ -228,7 +228,7 @@ export function PlatformDetailClient({
                         href={`https://github.com/${platform.github}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-white/80 hover:text-white transition-colors"
+                        className="flex items-center gap-3 text-orange-700 hover:text-orange-900 transition-colors"
                       >
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path
@@ -237,7 +237,7 @@ export function PlatformDetailClient({
                             clipRule="evenodd"
                           />
                         </svg>
-                        <span className="text-sm">{platform.github}</span>
+                        <span className="text-sm font-medium">{platform.github}</span>
                       </a>
                     )}
                   </div>

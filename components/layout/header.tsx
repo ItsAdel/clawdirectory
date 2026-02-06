@@ -37,13 +37,13 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-black/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-40 w-full border-b border-orange-200 bg-orange-50/95 backdrop-blur-sm shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl">🦞</span>
-              <span className="text-xl font-bold text-white">
+              <span className="text-xl font-bold text-orange-900">
                 ClawDirectory
               </span>
             </Link>
@@ -52,15 +52,15 @@ export function Header() {
             <nav className="hidden md:flex items-center space-x-6">
               <Link
                 href="/"
-                className="text-sm text-white/80 hover:text-white transition-colors"
+                className="text-sm text-orange-700 hover:text-orange-900 transition-colors"
               >
-                Home
+                🏠 Home
               </Link>
               <Link
                 href="/about"
-                className="text-sm text-white/80 hover:text-white transition-colors"
+                className="text-sm text-orange-700 hover:text-orange-900 transition-colors"
               >
-                About
+                ℹ️ About
               </Link>
             </nav>
 
@@ -72,7 +72,7 @@ export function Header() {
                 size="sm"
                 className="hidden md:inline-flex"
               >
-                Submit Platform
+                🦞 Submit Platform
               </Button>
               <UserMenu onSignInClick={() => setIsAuthModalOpen(true)} />
             </div>

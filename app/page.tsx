@@ -129,11 +129,11 @@ export default function Home() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Discover OpenClaw Platforms
+          <h1 className="text-4xl md:text-5xl font-bold text-orange-900 mb-4">
+            🦞 Discover OpenClaw Platforms 🦞
           </h1>
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12">
-            The directory of OpenClaw tools and platforms. Discover services, marketplaces, infrastructure, and everything built around OpenClaw.
+          <p className="text-lg md:text-xl text-orange-800/80 max-w-2xl mx-auto mb-12">
+            The cozy directory of OpenClaw tools and platforms. Find delightful services, marketplaces, infrastructure, and everything built with 🦞 around OpenClaw!
           </p>
           
           {/* Globe View */}
@@ -184,25 +184,25 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowPending(!showPending)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm ${
                   showPending
-                    ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                    : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10'
+                    ? 'bg-yellow-200 text-yellow-900 border-2 border-yellow-400'
+                    : 'bg-white text-orange-700 border-2 border-orange-300 hover:bg-orange-50'
                 }`}
               >
                 <div className={`w-4 h-4 rounded border-2 flex items-center justify-center ${
-                  showPending ? 'border-yellow-400 bg-yellow-500/20' : 'border-white/30'
+                  showPending ? 'border-yellow-700 bg-yellow-300' : 'border-orange-400'
                 }`}>
                   {showPending && (
-                    <svg className="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-3 h-3 text-yellow-900" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   )}
                 </div>
-                Show Your Pending Approvals
+                ⏳ Show Your Pending Approvals
               </button>
               {showPending && (
-                <span className="text-xs text-yellow-400/80">
+                <span className="text-xs text-yellow-800 font-medium">
                   {filteredPlatforms.filter(p => !p.approved).length} pending
                 </span>
               )}
@@ -211,14 +211,14 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="mb-8 text-sm text-white/60">
-          Showing {filteredPlatforms.length} of {platforms.length} platforms
+        <div className="mb-8 text-sm text-orange-700">
+          🦞 Showing {filteredPlatforms.length} of {platforms.length} amazing platforms
         </div>
 
         {/* Platform List */}
         {loading ? (
           <div className="text-center py-12">
-            <p className="text-white/60">Loading platforms...</p>
+            <p className="text-orange-700">🦞 Loading awesome platforms...</p>
           </div>
         ) : (
           <PlatformTable

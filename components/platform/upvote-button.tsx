@@ -95,10 +95,10 @@ export function UpvoteButton({
       onClick={handleUpvote}
       disabled={isLoading}
       className={cn(
-        'flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors',
+        'flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-colors shadow-sm',
         isUpvoted
-          ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400'
-          : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10',
+          ? 'bg-orange-200 border-orange-400 text-orange-800'
+          : 'bg-white border-orange-200 text-orange-700 hover:bg-orange-50',
         isLoading && 'opacity-50 cursor-not-allowed'
       )}
     >
