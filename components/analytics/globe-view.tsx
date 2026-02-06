@@ -132,11 +132,19 @@ export function GlobeView() {
   }, []);
 
   useEffect(() => {
-    // Auto-rotate the globe
-    if (globeEl.current) {
-      globeEl.current.controls().autoRotate = true;
-      globeEl.current.controls().autoRotateSpeed = 0.5;
-    }
+    // Auto-rotate the globe with a slight delay to ensure it's loaded
+    const interval = setInterval(() => {
+      if (globeEl.current && globeEl.current.controls) {
+        const controls = globeEl.current.controls();
+        if (controls) {
+          controls.autoRotate = true;
+          controls.autoRotateSpeed = 1.0;
+          clearInterval(interval);
+        }
+      }
+    }, 100);
+    
+    return () => clearInterval(interval);
   }, []);
 
   if (typeof window === 'undefined') {
@@ -144,7 +152,7 @@ export function GlobeView() {
   }
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-black/20 border border-white/10">
+    <div className="relative w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-black/20 border border-white/10 flex items-center justify-center">
       <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/10">
         <p className="text-sm text-white/80">
           <span className="font-semibold text-cyan-400">{platforms.length}</span> platforms launched worldwide
@@ -153,9 +161,10 @@ export function GlobeView() {
       
       <Globe
         ref={globeEl}
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         htmlElementsData={points}
+        animateIn={true}
         htmlElement={(d: any) => {
           const el = document.createElement('div');
           
@@ -272,8 +281,6 @@ export function GlobeView() {
         }}
         atmosphereColor="#06b6d4"
         atmosphereAltitude={0.15}
-        width={typeof window !== 'undefined' ? window.innerWidth > 768 ? 800 : window.innerWidth - 32 : 800}
-        height={typeof window !== 'undefined' ? window.innerWidth > 768 ? 500 : 400 : 500}
       />
     </div>
   );
