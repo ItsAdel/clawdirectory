@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { Badge } from '@/components/ui/badge'
 import { UpvoteButton } from '@/components/platform/upvote-button'
+import { CommentSection } from '@/components/platform/comment-section'
 import { AuthModal } from '@/components/auth/auth-modal'
 import { formatMRR, formatDate } from '@/lib/utils'
 import { CATEGORIES, CATEGORY_DESCRIPTIONS } from '@/lib/constants'
@@ -137,6 +138,12 @@ export function PlatformDetailClient({
                 </p>
               </div>
             )}
+
+            {/* Comments */}
+            <CommentSection
+              platformId={platform.id}
+              onAuthRequired={() => setIsAuthModalOpen(true)}
+            />
           </div>
 
           {/* Sidebar */}

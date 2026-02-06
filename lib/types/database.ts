@@ -88,6 +88,32 @@ export type Database = {
           created_at?: string
         }
       }
+      comments: {
+        Row: {
+          id: string
+          platform_id: string
+          user_id: string
+          user_email: string
+          body: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          platform_id: string
+          user_id: string
+          user_email: string
+          body: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          platform_id?: string
+          user_id?: string
+          user_email?: string
+          body?: string
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
