@@ -30,6 +30,8 @@ export default function SubmitPage() {
     mrr: '',
     twitter: '',
     github: '',
+    location_country: '',
+    location_city: '',
   })
 
   useEffect(() => {
@@ -97,6 +99,8 @@ export default function SubmitPage() {
         mrr,
         twitter: formData.twitter || null,
         github: formData.github || null,
+        location_country: formData.location_country || null,
+        location_city: formData.location_city || null,
         submitted_by: user.id,
         approved: false,
       } as any)
@@ -116,6 +120,8 @@ export default function SubmitPage() {
         mrr: '',
         twitter: '',
         github: '',
+        location_country: '',
+        location_city: '',
       })
 
       // Redirect after 3 seconds
@@ -351,6 +357,46 @@ export default function SubmitPage() {
             <p className="mt-1.5 text-sm text-white/40">
               Format: username/repo-name
             </p>
+          </div>
+
+          {/* Location Section */}
+          <div className="pt-4 border-t border-white/10">
+            <h3 className="text-lg font-semibold text-white mb-4">
+              📍 Location (Optional)
+            </h3>
+            <p className="text-sm text-white/60 mb-4">
+              Show where your platform was launched on our world map!
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Country */}
+              <div>
+                <Label htmlFor="location_country">Country</Label>
+                <Input
+                  id="location_country"
+                  name="location_country"
+                  type="text"
+                  placeholder="United States"
+                  value={formData.location_country}
+                  onChange={handleChange}
+                  className="mt-1.5"
+                />
+              </div>
+
+              {/* City */}
+              <div>
+                <Label htmlFor="location_city">City</Label>
+                <Input
+                  id="location_city"
+                  name="location_city"
+                  type="text"
+                  placeholder="San Francisco"
+                  value={formData.location_city}
+                  onChange={handleChange}
+                  className="mt-1.5"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Submit Button */}

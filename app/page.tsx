@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { PlatformTable } from '@/components/platform/platform-table'
 import { AuthModal } from '@/components/auth/auth-modal'
+import { GlobeView } from '@/components/analytics/globe-view'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { CATEGORIES, SORT_OPTIONS } from '@/lib/constants'
@@ -131,9 +132,14 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Discover OpenClaw Platforms
           </h1>
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12">
             The directory of OpenClaw tools and platforms. Discover services, marketplaces, infrastructure, and everything built around OpenClaw.
           </p>
+          
+          {/* Globe View */}
+          <div className="max-w-5xl mx-auto mb-12">
+            <GlobeView />
+          </div>
         </div>
 
         {/* Filters */}
