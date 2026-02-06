@@ -40,9 +40,10 @@ export default function ComparePage() {
 
       if (error) throw error
       // Preserve the order from URL params
+      const items = (data || []) as Platform[]
       const ordered = ids
-        .map((id) => (data || []).find((p: any) => p.id === id))
-        .filter(Boolean) as Platform[]
+        .map((id) => items.find((p) => p.id === id))
+        .filter((p): p is Platform => !!p)
       setPlatforms(ordered)
     } catch (error) {
       console.error('Error fetching platforms:', error)
