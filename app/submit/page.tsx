@@ -148,7 +148,7 @@ export default function SubmitPage() {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-white/60">Loading...</p>
+          <p className="text-orange-700">🦞 Loading...</p>
         </div>
       </div>
     )
@@ -160,7 +160,7 @@ export default function SubmitPage() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="mb-6">
             <svg
-              className="w-16 h-16 mx-auto text-cyan-400"
+              className="w-16 h-16 mx-auto text-orange-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -173,12 +173,12 @@ export default function SubmitPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4">Submission Received!</h1>
-          <p className="text-lg text-white/60 mb-8">
-            Thanks for submitting your platform. We'll review it within 24 hours and notify
-            you once it's approved.
+          <h1 className="text-3xl font-bold text-orange-900 mb-4">🦞 Submission Received!</h1>
+          <p className="text-lg text-orange-700 mb-8">
+            Thanks for submitting your platform! We'll review it within 24 hours and notify
+            you once it's approved. 🎉
           </p>
-          <Button onClick={() => router.push('/')}>Back to Directory</Button>
+          <Button onClick={() => router.push('/')}>🦞 Back to Directory</Button>
         </div>
       </div>
     )
@@ -187,16 +187,16 @@ export default function SubmitPage() {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Submit Your Platform
+        <h1 className="text-3xl md:text-4xl font-bold text-orange-900 mb-4">
+          🦞 Submit Your Platform
         </h1>
-        <p className="text-lg text-white/60 mb-8">
+        <p className="text-lg text-orange-700 mb-8">
           Add your OpenClaw platform or tool to the directory. Get a free backlink and
-          reach the OpenClaw community.
+          reach the OpenClaw community! 🚀
         </p>
 
         {error && (
-          <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400">
+          <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-700">
             {error}
           </div>
         )}
@@ -205,7 +205,7 @@ export default function SubmitPage() {
           {/* Name */}
           <div>
             <Label htmlFor="name">
-              Platform Name <span className="text-red-400">*</span>
+              Platform Name <span className="text-red-500">*</span>
             </Label>
             <Input
               id="name"
@@ -222,7 +222,7 @@ export default function SubmitPage() {
           {/* Website */}
           <div>
             <Label htmlFor="website">
-              Website URL <span className="text-red-400">*</span>
+              Website URL <span className="text-red-500">*</span>
             </Label>
             <Input
               id="website"
@@ -239,7 +239,7 @@ export default function SubmitPage() {
           {/* Description */}
           <div>
             <Label htmlFor="description">
-              Description <span className="text-red-400">*</span>
+              Description <span className="text-red-500">*</span>
             </Label>
             <Textarea
               id="description"
@@ -251,7 +251,7 @@ export default function SubmitPage() {
               className="mt-1.5"
               rows={4}
             />
-            <p className="mt-1.5 text-sm text-white/40">
+            <p className="mt-1.5 text-sm text-orange-600">
               {formData.description.length} characters
             </p>
           </div>
@@ -259,7 +259,7 @@ export default function SubmitPage() {
           {/* Category */}
           <div>
             <Label htmlFor="category">
-              Category <span className="text-red-400">*</span>
+              Category <span className="text-red-500">*</span>
             </Label>
             <Select
               id="category"
@@ -289,7 +289,7 @@ export default function SubmitPage() {
               onChange={handleChange}
               className="mt-1.5"
             />
-            <p className="mt-1.5 text-sm text-white/40">
+            <p className="mt-1.5 text-sm text-orange-600">
               Separate multiple tags with commas
             </p>
           </div>
@@ -306,14 +306,14 @@ export default function SubmitPage() {
               onChange={handleChange}
               className="mt-1.5"
             />
-            <p className="mt-1.5 text-sm text-white/40">
+            <p className="mt-1.5 text-sm text-orange-600">
               Direct link to your logo image. Leave empty for placeholder.
             </p>
           </div>
 
           {/* MRR */}
           <div>
-            <Label htmlFor="mrr">Monthly Recurring Revenue (MRR)</Label>
+            <Label htmlFor="mrr">💰 Monthly Recurring Revenue (MRR)</Label>
             <Input
               id="mrr"
               name="mrr"
@@ -323,14 +323,14 @@ export default function SubmitPage() {
               onChange={handleChange}
               className="mt-1.5"
             />
-            <p className="mt-1.5 text-sm text-white/40">
-              Optional. Showing your MRR builds trust (like TrustMRR).
+            <p className="mt-1.5 text-sm text-orange-600">
+              Optional. Showing your MRR builds trust (like TrustMRR)!
             </p>
           </div>
 
           {/* Twitter */}
           <div>
-            <Label htmlFor="twitter">Twitter Handle</Label>
+            <Label htmlFor="twitter">🐦 Twitter Handle</Label>
             <Input
               id="twitter"
               name="twitter"
@@ -344,7 +344,7 @@ export default function SubmitPage() {
 
           {/* GitHub */}
           <div>
-            <Label htmlFor="github">GitHub Repository</Label>
+            <Label htmlFor="github">💻 GitHub Repository</Label>
             <Input
               id="github"
               name="github"
@@ -354,18 +354,18 @@ export default function SubmitPage() {
               onChange={handleChange}
               className="mt-1.5"
             />
-            <p className="mt-1.5 text-sm text-white/40">
+            <p className="mt-1.5 text-sm text-orange-600">
               Format: username/repo-name
             </p>
           </div>
 
           {/* Location Section */}
-          <div className="pt-4 border-t border-white/10">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="pt-4 border-t border-orange-200">
+            <h3 className="text-lg font-semibold text-orange-900 mb-4">
               📍 Location (Optional)
             </h3>
-            <p className="text-sm text-white/60 mb-4">
-              Show where your platform was launched on our world map!
+            <p className="text-sm text-orange-700 mb-4">
+              Show where your platform was launched on our world map! 🌍
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -402,13 +402,13 @@ export default function SubmitPage() {
           {/* Submit Button */}
           <div className="pt-4">
             <Button type="submit" size="lg" className="w-full" disabled={loading}>
-              {loading ? 'Submitting...' : 'Submit Platform'}
+              {loading ? '🦞 Submitting...' : '🦞 Submit Platform'}
             </Button>
           </div>
 
-          <p className="text-sm text-white/40 text-center">
+          <p className="text-sm text-orange-600 text-center">
             By submitting, you agree that your platform will be manually reviewed before
-            appearing in the directory.
+            appearing in the directory. ✨
           </p>
         </form>
       </div>
