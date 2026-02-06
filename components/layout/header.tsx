@@ -1,22 +1,27 @@
 'use client'
 
-import * as React from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { UserMenu } from '@/components/auth/user-menu'
 import { AuthModal } from '@/components/auth/auth-modal'
-import { Button } from '@/components/ui/button'
 
 export function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
   const supabase = createClient()
 
   useEffect(() => {
     checkAuth()
+  }, [])
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const checkAuth = async () => {
@@ -37,43 +42,36 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-orange-200 bg-orange-50/95 backdrop-blur-sm shadow-sm">
+      <header
+        className={`fixed top-0 z-40 w-full transition-all duration-500 ${
+          scrolled
+            ? 'bg-white/70 backdrop-blur-xl border-b border-orange-200/50 shadow-sm'
+            : 'bg-transparent'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl">🦞</span>
-              <span className="text-xl font-bold text-orange-900">
+            <Link href="/" className="group flex items-center gap-2.5">
+              <span className="text-2xl transition-transform duration-300 group-hover:rotate-12">
+                🦞
+              </span>
+              <span className="text-lg font-semibold text-orange-900 tracking-tight">
                 ClawDirectory
               </span>
             </Link>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link
-                href="/"
-                className="text-sm text-orange-700 hover:text-orange-900 transition-colors"
-              >
-                🏠 Home
-              </Link>
-              <Link
-                href="/about"
-                className="text-sm text-orange-700 hover:text-orange-900 transition-colors"
-              >
-                ℹ️ About
-              </Link>
-            </nav>
-
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-3">
-              <Button
+            {/* Right Side */}
+            <div className="flex items-center gap-2">
+              <button
                 onClick={handleSubmitClick}
-                variant="primary"
-                size="sm"
-                className="hidden md:inline-flex"
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-orange-700 hover:text-orange-900 rounded-full hover:bg-orange-100/60 transition-all duration-300"
               >
-                🦞 Submit Platform
-              </Button>
+                Submit
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
               <UserMenu onSignInClick={() => setIsAuthModalOpen(true)} />
             </div>
           </div>

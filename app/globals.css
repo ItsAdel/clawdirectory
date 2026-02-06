@@ -25,19 +25,35 @@ body {
   min-height: 100vh;
 }
 
-/* Scrollbar Styling */
+/* View switch animation */
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-view-enter {
+  animation: viewEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fef3e2;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffb5a7;
-  border-radius: 4px;
+  background: #ffd4a3;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
