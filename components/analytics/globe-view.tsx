@@ -87,7 +87,7 @@ const COUNTRY_COORDS: Record<string, { lat: number; lng: number }> = {
 export function GlobeView() {
   const [platforms, setPlatforms] = useState<Platform[]>([]);
   const [points, setPoints] = useState<GlobePoint[]>([]);
-  const globeEl = useRef<any>();
+  const globeEl = useRef<any>(null);
 
   const fetchPlatformsWithLocation = async () => {
     const supabase = createClient();
