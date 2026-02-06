@@ -81,19 +81,41 @@ export function UserMenu({ onSignInClick }: UserMenuProps) {
 
           <button
             onClick={() => {
+              window.location.href = `/profile/${user.id}`
+              setIsOpen(false)
+            }}
+            className="w-full text-left px-4 py-2 text-sm text-orange-800 hover:bg-orange-50 transition-colors"
+          >
+            My Profile
+          </button>
+
+          <button
+            onClick={() => {
+              window.location.href = '/bookmarks'
+              setIsOpen(false)
+            }}
+            className="w-full text-left px-4 py-2 text-sm text-orange-800 hover:bg-orange-50 transition-colors"
+          >
+            Saved
+          </button>
+
+          <button
+            onClick={() => {
               window.location.href = '/submit'
               setIsOpen(false)
             }}
             className="w-full text-left px-4 py-2 text-sm text-orange-800 hover:bg-orange-50 transition-colors"
           >
-            🦞 Submit Platform
+            Submit Platform
           </button>
+
+          <div className="border-t border-orange-200 my-1" />
 
           <button
             onClick={handleSignOut}
             className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
           >
-            👋 Sign Out
+            Sign Out
           </button>
         </div>
       )}

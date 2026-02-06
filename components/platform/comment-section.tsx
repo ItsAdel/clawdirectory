@@ -4,15 +4,17 @@ import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { timeAgo } from '@/lib/utils'
+import { VerifiedBadge } from '@/components/platform/verified-badge'
 
 type Comment = Database['public']['Tables']['comments']['Row']
 
 interface CommentSectionProps {
   platformId: string
   onAuthRequired: () => void
+  claimedBy?: string | null
 }
 
-export function CommentSection({ platformId, onAuthRequired }: CommentSectionProps) {
+export function CommentSection({ platformId, onAuthRequired, claimedBy }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -177,6 +179,9 @@ export function CommentSection({ platformId, onAuthRequired }: CommentSectionPro
                   <span className="text-sm font-medium text-orange-900">
                     {getDisplayName(comment.user_email)}
                   </span>
+                  {claimedBy && comment.user_id === claimedBy && (
+                    <VerifiedBadge />
+                  )}
                   <span className="text-[11px] text-orange-400">
                     {timeAgo(comment.created_at)}
                   </span>

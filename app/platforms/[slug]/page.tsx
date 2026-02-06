@@ -50,12 +50,13 @@ export default async function PlatformPage({ params }: PageProps) {
     notFound()
   }
 
-  // Get user's upvote status
+  // Get user's upvote status and bookmark status
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
   let isUpvoted = false
+  let isBookmarked = false
   if (user) {
     const { data: upvote } = await supabase
       .from('upvotes')
@@ -65,7 +66,33 @@ export default async function PlatformPage({ params }: PageProps) {
       .single()
 
     isUpvoted = !!upvote
+
+    const { data: bookmark } = await supabase
+      .from('bookmarks')
+      .select('id')
+      .eq('platform_id', (platform as any).id)
+      .eq('user_id', user.id)
+      .single()
+
+    isBookmarked = !!bookmark
   }
 
-  return <PlatformDetailClient platform={platform as any} initialIsUpvoted={isUpvoted} />
+  // Fetch similar platforms
+  const { data: alternatives } = await supabase
+    .from('platforms')
+    .select('id, name, slug, logo_url, category, description, upvote_count')
+    .eq('category', (platform as any).category)
+    .eq('approved', true)
+    .neq('id', (platform as any).id)
+    .order('upvote_count', { ascending: false })
+    .limit(4)
+
+  return (
+    <PlatformDetailClient
+      platform={platform as any}
+      initialIsUpvoted={isUpvoted}
+      initialIsBookmarked={isBookmarked}
+      alternatives={(alternatives as any) || []}
+    />
+  )
 }

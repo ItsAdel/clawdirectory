@@ -7,21 +7,38 @@ import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { Badge } from '@/components/ui/badge'
 import { UpvoteButton } from '@/components/platform/upvote-button'
+import { BookmarkButton } from '@/components/platform/bookmark-button'
 import { CommentSection } from '@/components/platform/comment-section'
+import { ClaimButton } from '@/components/platform/claim-button'
+import { VerifiedBadge } from '@/components/platform/verified-badge'
 import { AuthModal } from '@/components/auth/auth-modal'
 import { formatMRR, formatDate } from '@/lib/utils'
 import { CATEGORIES, CATEGORY_DESCRIPTIONS } from '@/lib/constants'
 
 type Platform = Database['public']['Tables']['platforms']['Row']
 
+interface AlternativePlatform {
+  id: string
+  name: string
+  slug: string
+  logo_url: string
+  category: string
+  description: string
+  upvote_count: number
+}
+
 interface PlatformDetailClientProps {
   platform: Platform
   initialIsUpvoted: boolean
+  initialIsBookmarked?: boolean
+  alternatives?: AlternativePlatform[]
 }
 
 export function PlatformDetailClient({
   platform,
   initialIsUpvoted,
+  initialIsBookmarked = false,
+  alternatives = [],
 }: PlatformDetailClientProps) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -83,15 +100,25 @@ export function PlatformDetailClient({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-4 mb-2">
-                  <h1 className="text-2xl md:text-3xl font-bold text-orange-950 tracking-tight">
-                    {platform.name}
-                  </h1>
-                  <UpvoteButton
-                    platformId={platform.id}
-                    initialUpvoteCount={platform.upvote_count}
-                    initialIsUpvoted={initialIsUpvoted}
-                    onAuthRequired={() => setIsAuthModalOpen(true)}
-                  />
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h1 className="text-2xl md:text-3xl font-bold text-orange-950 tracking-tight">
+                      {platform.name}
+                    </h1>
+                    {platform.claimed_by && <VerifiedBadge />}
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <BookmarkButton
+                      platformId={platform.id}
+                      initialIsBookmarked={initialIsBookmarked}
+                      onAuthRequired={() => setIsAuthModalOpen(true)}
+                    />
+                    <UpvoteButton
+                      platformId={platform.id}
+                      initialUpvoteCount={platform.upvote_count}
+                      initialIsUpvoted={initialIsUpvoted}
+                      onAuthRequired={() => setIsAuthModalOpen(true)}
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 mb-4">
                   {category && (
@@ -143,7 +170,56 @@ export function PlatformDetailClient({
             <CommentSection
               platformId={platform.id}
               onAuthRequired={() => setIsAuthModalOpen(true)}
+              claimedBy={platform.claimed_by}
             />
+
+            {/* Similar Platforms */}
+            {alternatives.length > 0 && (
+              <div className="mt-10">
+                <h2 className="text-xs text-orange-500 font-medium tracking-wide uppercase mb-4">
+                  Similar Platforms
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {alternatives.map((alt) => {
+                    const altCategory = CATEGORIES.find((c) => c.value === alt.category)
+                    return (
+                      <Link
+                        key={alt.id}
+                        href={`/platforms/${alt.slug}`}
+                        className="group flex items-start gap-3 p-4 rounded-xl bg-white/60 border border-orange-200/40 hover:bg-orange-50/50 transition-colors"
+                      >
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-orange-50 shrink-0 border border-orange-200/40">
+                          <Image
+                            src={alt.logo_url}
+                            alt={`${alt.name} logo`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <h3 className="text-sm font-medium text-orange-900 group-hover:text-orange-500 transition-colors truncate">
+                              {alt.name}
+                            </h3>
+                            <span className="text-xs text-orange-400 shrink-0">
+                              {alt.upvote_count} upvotes
+                            </span>
+                          </div>
+                          {altCategory && (
+                            <Badge variant="secondary" className="text-xs mb-1">
+                              {altCategory.emoji} {altCategory.label.replace(/^.\s/, '')}
+                            </Badge>
+                          )}
+                          <p className="text-xs text-orange-700/50 line-clamp-2 leading-relaxed">
+                            {alt.description}
+                          </p>
+                        </div>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}
@@ -241,6 +317,13 @@ export function PlatformDetailClient({
                   </div>
                 </div>
               )}
+
+              {/* Claim */}
+              <ClaimButton
+                platformId={platform.id}
+                claimedBy={platform.claimed_by}
+                onAuthRequired={() => setIsAuthModalOpen(true)}
+              />
             </div>
           </div>
         </div>
