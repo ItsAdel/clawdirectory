@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Database } from '@/lib/types/database'
 import { PlatformTable } from '@/components/platform/platform-table'
@@ -25,8 +26,18 @@ export default function Home() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [activeView, setActiveView] = useState<'list' | 'globe'>('list')
   const [mounted, setMounted] = useState(false)
+  const [compareIds, setCompareIds] = useState<string[]>([])
 
+  const router = useRouter()
   const supabase = createClient()
+
+  const handleToggleCompare = (id: string) => {
+    setCompareIds((prev) => {
+      if (prev.includes(id)) return prev.filter((i) => i !== id)
+      if (prev.length >= 3) return prev
+      return [...prev, id]
+    })
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -290,6 +301,8 @@ export default function Home() {
                   platforms={filteredPlatforms}
                   onAuthRequired={() => setIsAuthModalOpen(true)}
                   userUpvotes={userUpvotes}
+                  selectedIds={compareIds}
+                  onToggleSelect={handleToggleCompare}
                 />
               )}
             </div>
@@ -301,6 +314,64 @@ export default function Home() {
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
       />
+
+      {/* Floating Compare Bar */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          compareIds.length > 0
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-5">
+          <div className="flex items-center justify-between gap-4 px-5 py-3.5 rounded-2xl bg-white/80 backdrop-blur-xl border border-orange-200/60 shadow-lg shadow-orange-500/5">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex -space-x-2">
+                {compareIds.map((id) => {
+                  const p = platforms.find((pl) => pl.id === id)
+                  return p ? (
+                    <div
+                      key={id}
+                      className="w-8 h-8 rounded-full border-2 border-white bg-orange-100 overflow-hidden shrink-0"
+                    >
+                      <img
+                        src={p.logo_url}
+                        alt={p.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : null
+                })}
+              </div>
+              <span className="text-sm text-orange-800 font-medium truncate">
+                {compareIds.length} platform{compareIds.length !== 1 ? 's' : ''} selected
+                {compareIds.length < 2 && (
+                  <span className="text-orange-400 ml-1 hidden sm:inline">— select at least 2 to compare</span>
+                )}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setCompareIds([])}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-orange-500 hover:text-orange-700 hover:bg-orange-50 transition-colors"
+              >
+                Clear
+              </button>
+              <button
+                onClick={() => {
+                  if (compareIds.length >= 2) {
+                    router.push(`/compare?ids=${compareIds.join(',')}`)
+                  }
+                }}
+                disabled={compareIds.length < 2}
+                className="px-4 py-1.5 rounded-lg bg-orange-500 text-white text-xs font-medium hover:bg-orange-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Compare
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
